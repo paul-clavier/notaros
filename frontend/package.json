@@ -1,0 +1,36 @@
+{
+    "name": "frontend-2",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@nw-tech/joule-spin": "0.0.28",
+        "classnames": "2.5.1",
+        "next": "14.1.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-i18next": "14.0.1",
+        "socket.io-client": "4.7.4",
+        "swr": "2.2.4"
+    },
+    "devDependencies": {
+        "@types/node": "20.3.1",
+        "@types/react": "18.2.46",
+        "@typescript-eslint/eslint-plugin": "6.0.0",
+        "@typescript-eslint/parser": "6.0.0",
+        "eslint": "8.42.0",
+        "eslint-config-next": "14.0.4",
+        "eslint-config-prettier": "9.0.0",
+        "eslint-plugin-prettier": "5.0.0",
+        "prettier": "3.0.0",
+        "prettier-plugin-organize-imports": "3.2.4",
+        "ts-node": "10.9.1",
+        "tsconfig-paths": "4.2.0",
+        "typescript": "5.1.3"
+    }
+}

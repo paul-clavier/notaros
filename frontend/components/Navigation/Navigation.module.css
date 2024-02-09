@@ -1,0 +1,14 @@
+.root {
+    width: 100vw;
+    height: 4rem;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--black-500);
+}
+
+.link {
+    display: flex;
+    gap: 0.5rem;
+}

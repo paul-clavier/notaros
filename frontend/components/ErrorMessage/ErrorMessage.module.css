@@ -1,0 +1,21 @@
+.root {
+    padding: 0 2rem;
+    display: flex;
+
+    flex-grow: 1;
+    grid-column: 1/-1;
+    grid-row: -1/-2;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.alert {
+    width: 100%;
+    max-width: 25rem;
+    margin: 0 auto;
+}
+
+.button {
+    margin: 1rem auto 0;
+}

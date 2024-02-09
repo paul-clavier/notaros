@@ -1,0 +1,15 @@
+.root {
+    display: flex;
+
+    flex-grow: 1;
+    grid-column: 1/-1;
+    grid-row: -1/-2;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.loadingIcon {
+    font-size: 2rem;
+    animation: var(--loading-animation);
+}

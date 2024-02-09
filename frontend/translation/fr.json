@@ -1,0 +1,7 @@
+{
+    "components": {
+        "errorMessage": {
+            "unknownErrorMessage": "There is an error from our application. Please reach our developers team"
+        }
+    }
+}
