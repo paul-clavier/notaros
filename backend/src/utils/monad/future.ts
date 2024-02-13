@@ -37,7 +37,7 @@ export class Future<A> {
     static Result = <A, E = never>(value: A): Future<Result<A, E>> => {
         const future = Object.create(futureProto);
         const valueAsResult = Result.Ok<A, E>(value);
-        future._state = { tag: "Resolved", valueAsResult };
+        future._state = { tag: "Resolved", value: valueAsResult };
         return future as Future<Result<A, E>>;
     };
 
@@ -246,163 +246,7 @@ export class Future<A> {
         return this;
     }
 
-    /**
-     * For Future<Result<*>>:
-     *
-     * Runs the callback with the value if ok and returns `this`
-     */
-    tapOk<A, E>(
-        this: Future<Result<A, E>>,
-        func: (value: A) => unknown,
-    ): Future<Result<A, E>> {
-        this.onResolve((value) => {
-            value.match({
-                Ok: (value) => func(value),
-                Error: () => {},
-            });
-        });
-
-        return this;
-    }
-
-    /**
-     * For Future<Result<*>>:
-     *
-     * Runs the callback with the error if in error and returns `this`
-     */
-    tapError<A, E>(
-        this: Future<Result<A, E>>,
-        func: (value: E) => unknown,
-    ): Future<Result<A, E>> {
-        this.onResolve((value) => {
-            value.match({
-                Ok: () => {},
-                Error: (error) => func(error),
-            });
-        });
-
-        return this;
-    }
-
-    /**
-     * For Future<Result<*>>:
-     *
-     * Takes a callback taking the Ok value and returning a new result and returns a future resolving to this new result
-     */
-    mapOkToResult<A, E, B, F>(
-        this: Future<Result<A, E>>,
-        func: (value: A) => Result<B, F>,
-        propagateCancel = false,
-    ): Future<Result<B, F | E>> {
-        return this.map((value) => {
-            return value.match({
-                Ok: (value) => func(value),
-                Error: () => value as unknown as Result<B, E | F>,
-            });
-        }, propagateCancel);
-    }
-
-    mapOkAndCatch<A, E, B, F>(
-        this: Future<Result<A, E>>,
-        func: (value: A) => B,
-        propagateCancel = false,
-    ): Future<Result<B, F | E>> {
-        return this.map((value) => {
-            return value.mapCatchError(func);
-        }, propagateCancel);
-    }
-
-    /**
-     * For Future<Result<*>>:
-     *
-     * Takes a callback taking the Error value and returning a new result and returns a future resolving to this new result
-     */
-    mapErrorToResult<A, E, B, F>(
-        this: Future<Result<A, E>>,
-        func: (value: E) => Result<B, F>,
-        propagateCancel = false,
-    ): Future<Result<A | B, F>> {
-        return this.map((value) => {
-            return value.match({
-                Error: (error) => func(error),
-                Ok: () => value as unknown as Result<A | B, F>,
-            });
-        }, propagateCancel);
-    }
-
-    /**
-     * For Future<Result<*>>:
-     *
-     * Takes a callback taking the Ok value and returning a new ok value and returns a future resolving to this new result
-     */
-    mapOk<A, E, B>(
-        this: Future<Result<A, E>>,
-        func: (value: A) => B,
-        propagateCancel = false,
-    ): Future<Result<B, E>> {
-        return this.map((value) => {
-            return value.match({
-                Ok: (value) => Result.Ok(func(value)),
-                Error: () => value as unknown as Result<B, E>,
-            });
-        }, propagateCancel);
-    }
-
-    /**
-     * For Future<Result<*>>:
-     *
-     * Takes a callback taking the Error value and returning a new error value and returns a future resolving to this new result
-     */
-    mapError<A, E, B>(
-        this: Future<Result<A, E>>,
-        func: (value: E) => B,
-        propagateCancel = false,
-    ): Future<Result<A, B>> {
-        return this.map((value) => {
-            return value.match({
-                Ok: () => value as unknown as Result<A, B>,
-                Error: (error) => Result.Error(func(error)),
-            });
-        }, propagateCancel);
-    }
-
-    /**
-     * For Future<Result<*>>:
-     *
-     * Takes a callback taking the Ok value and returning a future
-     */
-    flatMapOk<A, E, B, F>(
-        this: Future<Result<A, E>>,
-        func: (value: A) => Future<Result<B, F>>,
-        propagateCancel = false,
-    ): Future<Result<B, F | E>> {
-        return this.flatMap((value) => {
-            return value.match({
-                Ok: (value) => func(value) as Future<Result<B, F | E>>,
-                Error: () => Future.value(value as unknown as Result<B, F | E>),
-            });
-        }, propagateCancel);
-    }
-
-    /**
-     * For Future<Result<*>>:
-     *
-     * Takes a callback taking the Error value and returning a future
-     */
-    flatMapError<A, E, B, F>(
-        this: Future<Result<A, E>>,
-        func: (value: E) => Future<Result<B, F>>,
-        propagateCancel = false,
-    ): Future<Result<A | B, F>> {
-        return this.flatMap((value) => {
-            return value.match({
-                Ok: () => Future.value(value as unknown as Result<A | B, F>),
-                Error: (error) => func(error) as Future<Result<A | B, F>>,
-            });
-        }, propagateCancel);
-    }
-
-    asyncPipe<A, E, B, F = never>(
+    pipeAsync<A, E, B, F = never>(
         this: Future<Result<A, E>>,
         func: (value: A) => Promise<B>,
         propagateCancel = false,
@@ -421,10 +265,34 @@ export class Future<A> {
         func: (value: A) => B,
         propagateCancel = false,
     ): Future<Result<B, F | E>> {
-        return this.asyncPipe<A, E, B, F>(
+        return this.pipeAsync<A, E, B, F>(
             (value: A) => Promise.resolve(func(value)),
             propagateCancel,
         );
+    }
+
+    pipeTap<A, E>(
+        this: Future<Result<A, E>>,
+        func: (value: A) => unknown,
+    ): Future<Result<A, E>> {
+        this.tap((value) => {
+            if (value.isOk()) {
+                func(value.value);
+            }
+        });
+        return this;
+    }
+
+    pipeTapError<A, E>(
+        this: Future<Result<A, E>>,
+        func: (value: E) => unknown,
+    ): Future<Result<A, E>> {
+        this.tap((value) => {
+            if (value.isError()) {
+                func(value.value);
+            }
+        });
+        return this;
     }
 
     pipeResult<A, E, B, F = never>(
@@ -440,7 +308,7 @@ export class Future<A> {
         }, propagateCancel);
     }
 
-    pipeFuture<A, E, B, F = never>(
+    pipeTask<A, E, B, F = never>(
         this: Future<Result<A, E>>,
         func: (value: A) => Future<Result<B, F>>,
         propagateCancel = false,

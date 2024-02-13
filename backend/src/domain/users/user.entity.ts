@@ -1,3 +1,4 @@
+import { Option } from "@/utils/monad";
 import { BaseEntity } from "@/utils/types";
 
 export interface User extends BaseEntity {
@@ -5,4 +6,5 @@ export interface User extends BaseEntity {
     password: string;
     firstName: string;
     lastName: string;
+    refreshToken: Option<string>;
 }

@@ -10,7 +10,7 @@ async function bootstrap() {
         .setTitle("Notaros API")
         .setDescription("The Notaros API description")
         .setVersion("0.1")
-        .addBearerAuth()
+        .addBearerAuth({ type: "http", scheme: "bearer", bearerFormat: "jwt" })
         .build();
 
     const document = SwaggerModule.createDocument(app, config);

@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const bcrypt = require("bcrypt");
 const prisma = new PrismaClient();
 
 async function main() {
@@ -8,7 +10,7 @@ async function main() {
         update: {},
         create: {
             email: "toto@school.com",
-            password: "donotforget",
+            password: bcrypt.hashSync("donotforget", 10),
             firstName: "Toto",
             lastName: "Zero",
         },
