@@ -1,5 +1,5 @@
 {
-    "name": "frontend-2",
+    "name": "notaros-frontend",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -9,13 +9,12 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@nw-tech/joule-spin": "0.0.28",
+        "@paul-clavier/mugiwara": "0.1.3",
         "classnames": "2.5.1",
         "next": "14.1.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-i18next": "14.0.1",
-        "socket.io-client": "4.7.4",
         "swr": "2.2.4"
     },
     "devDependencies": {

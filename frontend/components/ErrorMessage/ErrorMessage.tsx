@@ -1,12 +1,12 @@
-import { MouseEvent } from "react";
-import { Trans } from "react-i18next";
-import styles from "./ErrorMessage.module.css";
 import {
     Alert,
     AlertDescription,
     AlertTitle,
     TerminalIcon,
-} from "@nw-tech/joule-spin";
+} from "@paul-clavier/mugiwara";
+import { MouseEvent } from "react";
+import { Trans } from "react-i18next";
+import styles from "./ErrorMessage.module.css";
 
 const UnknownErrorMessage = () => {
     const reload = (event: MouseEvent<HTMLAnchorElement>) => {

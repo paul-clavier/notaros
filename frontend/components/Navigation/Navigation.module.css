@@ -1,11 +1,13 @@
 .root {
-    width: 100vw;
-    height: 4rem;
-    padding: 1rem 3rem;
+    --menu-item-padding: 0.75rem;
+
+    padding: 1rem;
+    width: var(--side-menu-width);
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--black-500);
+    flex-direction: column;
+    gap: 1rem;
+    background-color: hsl(var(--primary));
 }
 
 .link {

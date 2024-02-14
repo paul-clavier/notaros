@@ -2,12 +2,12 @@
 
 # Setup
 
-## joule-spin
+## mugiwara
 
 Login to GitHub packages to be able to run `npm install`
 
 ```sh
-npm login --scope=@nw-tech --auth-type=legacy --registry=https://npm.pkg.github.com
+npm login --scope=@paul-clavier --auth-type=legacy --registry=https://npm.pkg.github.com
 ```
 
 ## node version

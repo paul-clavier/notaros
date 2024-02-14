@@ -1,22 +1,17 @@
 {
     "generic": {
+        "title": "Notaros",
         "unknownError": "Unknown error"
+    },
+    "navigation": {
+        "home": "Home",
+        "draftRegistry": "Draft registry",
+        "raisedHand": "Raised hand",
+        "taxes": "Taxes"
     },
     "components": {
         "errorMessage": {
-            "unknownError": "There was an unknown error from our application. Please try <button>reloading the page</button>.<br/>Otherwise, please reach our developers team"
+            "unknownError": "There was an unknown error from our application. Please try <button>reloading the page</button>.<br/>Otherwise, please reach our developers team."
         }
-    },
-    "navigation": {
-        "general": "General",
-        "unifilaire": "Unifilaire",
-        "sequence": "Sequence",
-        "afe": "AFE",
-        "batteries": "Batteries",
-        "hvac": "HVAC",
-        "alarms": "Alarms",
-        "historic": "Historic",
-        "roundtrip": "Roundtrip",
-        "settings": "Settings"
     }
 }

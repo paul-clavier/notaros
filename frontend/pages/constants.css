@@ -1,25 +1,11 @@
-:root {
-    /* Primary colors */
-    --primary-900: #020213;
-    --primary-800: #030f25;
-    --primary-700: #041a40;
-    --primary-600: #09265d;
-    --primary-500: #1a4faf;
-    --primary-400: #5683d9;
-    --primary-300: #97b5ea;
-    --primary-200: #b2c7ee;
-    --primary-100: #eef2fa;
+@import "@paul-clavier/mugiwara/dist/style.css";
 
-    /* Black colors */
-    --black-900: #000;
-    --black-800: #040303;
-    --black-700: #1f1e1e;
-    --black-600: #0d1117;
-    --black-500: #2b2b2b;
-    --black-400: #6a6a6a;
-    --black-300: #9c9b9b;
-    --black-200: #cdcdcd;
-    --black-100: #e6e6e6;
+:root {
+    --primary-900: hsl(142, 76%, 21%);
+    --primary-700: hsl(142, 76%, 21%);
+    --primary-500: hsl(142, 76%, 21%);
+    --primary-300: hsl(142, 76%, 21%);
+    --primary-100: hsl(142, 76%, 21%);
 
     /* Danger colors */
     --danger-800: #731206;
@@ -61,9 +47,11 @@
     --z-index-below-content: -1;
     --z-index-content: 0;
     --z-index-above-content: 1;
-    --z-index-header: 2;
-    --z-index-banner: 3;
-    --z-index-backdrop-content: 4;
+    --z-index-close-button: 2;
+    --z-index-header: 3;
+    --z-index-banner: 4;
+    --z-index-backdrop-content: 5;
+    --z-index-above-backdrop-content: 6;
 
     /* ANIMATIONS */
     --loading-animation: rotation 2s infinite linear;

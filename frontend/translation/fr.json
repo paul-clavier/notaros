@@ -1,7 +1,17 @@
 {
+    "generic": {
+        "title": "Notaros",
+        "unknownError": "Unknown error"
+    },
+    "navigation": {
+        "home": "Accueil",
+        "draftRegistry": "Répertoire brouillon",
+        "raisedHand": "Main levée",
+        "taxes": "Taxes"
+    },
     "components": {
         "errorMessage": {
-            "unknownErrorMessage": "There is an error from our application. Please reach our developers team"
+            "unknownError": "Une erreur inattendue est survenue. Essayez de <button>recharger la page</button>.<br/>Contactez notre équipe de développeurs sinon."
         }
     }
 }

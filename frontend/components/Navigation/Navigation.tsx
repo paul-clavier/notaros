@@ -1,80 +1,38 @@
 import {
-    BookIcon,
-    BulbIcon,
-    CogIcon,
-    DropIcon,
+    EditIcon,
     HomeIcon,
-    LightningIcon,
     MagicIcon,
-    MapIcon,
-    SinusoidIcon,
-    SwitchIcon,
-} from "@nw-tech/joule-spin";
+    SendIcon,
+} from "@paul-clavier/mugiwara";
 import classNames from "classnames";
-import styles from "./Navigation.module.css";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import styles from "./Navigation.module.css";
 
 const NAVIGATION_MENU = [
     {
-        name: "general",
-        label: "navigation.general",
+        name: "home",
+        label: "navigation.home",
         link: "",
         icon: <HomeIcon />,
     },
     {
-        name: "unifilaire",
-        label: "navigation.unifilaire",
-        link: "unifilaire",
-        icon: <SwitchIcon />,
+        name: "draft-registry",
+        label: "navigation.draftRegistry",
+        link: "draft-registry",
+        icon: <EditIcon />,
     },
     {
-        name: "sequence",
-        label: "navigation.sequence",
-        link: "sequence",
+        name: "raised-hand",
+        label: "navigation.raisedHand",
+        link: "raised-hand",
+        icon: <SendIcon />,
+    },
+    {
+        name: "taxes",
+        label: "navigation.taxes",
+        link: "taxes",
         icon: <MagicIcon />,
-    },
-    {
-        name: "afe",
-        label: "navigation.afe",
-        link: "afe",
-        icon: <SinusoidIcon />,
-    },
-    {
-        name: "batteries",
-        label: "navigation.batteries",
-        link: "batteries",
-        icon: <LightningIcon />,
-    },
-    {
-        name: "hvac",
-        label: "navigation.hvac",
-        link: "hvac",
-        icon: <DropIcon />,
-    },
-    {
-        name: "alarms",
-        label: "navigation.alarms",
-        link: "alarms",
-        icon: <BulbIcon />,
-    },
-    {
-        name: "historic",
-        label: "navigation.historic",
-        link: "historic",
-        icon: <BookIcon />,
-    },
-    {
-        name: "roundtrip",
-        label: "navigation.roundtrip",
-        link: "roundtrip",
-        icon: <MapIcon />,
-    },
-    {
-        name: "settings",
-        label: "navigation.settings",
-        link: "settings",
-        icon: <CogIcon />,
     },
 ];
 

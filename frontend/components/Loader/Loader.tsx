@@ -1,4 +1,4 @@
-import { LoadingIcon } from "@nw-tech/joule-spin";
+import { LoadingIcon } from "@paul-clavier/mugiwara";
 import styles from "./Loader.module.css";
 
 const Loader = () => {

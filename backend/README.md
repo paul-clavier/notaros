@@ -91,11 +91,6 @@ When changing the data model you should run the following command to generate an
 npm run migrate -- --name "<NAME>"
 ```
 
-# GitFlow
-
-The `main` branch is protected. A Merge request has to be approved before it is merged into main. It is then automatically deployed with our CI/CD.
-We build the image of the application on a registry. From there, a Portainer service receives a notification and deploys the new version of the image.
-
 # Drone
 
 We use drone for our CI/CD. We have two pipelines, one running at every new commit on a `pull_request`, and one whenever there is a push on `main` branch

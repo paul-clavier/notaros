@@ -1,4 +1,98 @@
 .root {
+    --header-height: 4rem;
+
     display: grid;
     min-height: 100vh;
+}
+
+.header {
+    position: fixed;
+    height: var(--header-height);
+    width: 100vw;
+    background-color: var(--primary-900);
+    z-index: var(--z-index-header);
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: "logo gap theme user" / "min-content auto min-content min-content";
+    grid-auto-flow: column;
+    grid-gap: 1rem;
+}
+
+.logo {
+    grid-area: "logo";
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theme {
+    grid-area: "theme";
+}
+
+.user {
+    grid-area: "user";
+}
+
+.menu {
+    position: fixed;
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+
+    /* because we want the buttons and the dropdowns and their content to be behind the left hand side menu */
+    z-index: var(--z-index-close-button);
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    /* Push the body so that it is not covered by the side menu. */
+    /* stylelint-disable-next-line property-disallowed-list */
+    margin-left: var(--side-menu-width);
+
+    /* 100% rather than 100vw to not have the scroll bar width issue
+    otherwise there is an horizontal scroll because a part of the body is hidden behind the scroll bar */
+    width: calc(100% - var(--side-menu-width));
+}
+
+.container {
+    padding: var(--container-padding);
+    margin: 0 auto;
+    max-width: 100%;
+    width: 100%;
+    display: var(--container-display);
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+@media (max-width: 991px) {
+    .root {
+        --container-padding: 2rem;
+        --container-width: 35rem;
+        --side-menu-width: 12rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .root {
+        --container-padding: 2rem;
+        --container-width: 45rem;
+        --side-menu-width: 14rem;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .root {
+        --container-padding: 3rem;
+        --container-width: 55.5rem;
+        --side-menu-width: 14rem;
+    }
+}
+
+@media (min-width: 1400px) {
+    .root {
+        --container-padding: 4rem;
+        --container-width: 67.5rem;
+        --side-menu-width: 14rem;
+    }
 }
