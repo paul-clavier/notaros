@@ -9,28 +9,25 @@
     position: fixed;
     height: var(--header-height);
     width: 100vw;
-    background-color: var(--primary-900);
+    padding: 0 1rem;
+    background-color: var(--primary-500);
     z-index: var(--z-index-header);
-    padding: 2rem;
     display: grid;
-    grid-template-columns: "logo gap theme user" / "min-content auto min-content min-content";
-    grid-auto-flow: column;
+    grid-template-areas: "logo gap settings";
+    grid-template-columns: min-content auto min-content;
     grid-gap: 1rem;
+    align-items: center;
 }
 
 .logo {
-    grid-area: "logo";
+    grid-area: logo;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.theme {
-    grid-area: "theme";
-}
-
-.user {
-    grid-area: "user";
+.settings {
+    grid-area: settings;
 }
 
 .menu {

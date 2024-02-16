@@ -1,0 +1,52 @@
+.button {
+    --button-border: 0.0625rem;
+
+    border-radius: 2rem;
+    padding: calc(0.5rem - var(--button-border));
+    width: min-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: var(--weight-extra-bold);
+    line-height: 1rem;
+    cursor: pointer;
+    font-family: Madras, sans-serif;
+    letter-spacing: 0.0188rem;
+    transition:
+        background-color var(--color-transition-specs),
+        color var(--color-transition-specs),
+        border-color var(--color-transition-specs);
+    white-space: nowrap;
+}
+
+.button:focus {
+    color: var(--white);
+    border: var(--button-border) solid var(--primary-500);
+}
+
+.button:not(:disabled):hover {
+    border: var(--button-border) solid var(--primary-700);
+}
+
+.button:not(:disabled):active {
+    border: var(--button-border) solid var(--primary-900);
+}
+
+.button svg {
+    font-size: 1rem;
+}
+
+.button:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+}
+
+.button:disabled {
+    background-color: var(--black-100);
+    border: var(--button-border) solid var(--black-300);
+    cursor: not-allowed;
+    color: var(--black-500);
+    transition: none;
+}

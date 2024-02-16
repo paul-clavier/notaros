@@ -13,5 +13,11 @@
         "errorMessage": {
             "unknownError": "There was an unknown error from our application. Please try <button>reloading the page</button>.<br/>Otherwise, please reach our developers team."
         }
+    },
+    "pages": {
+        "settings": {
+            "title": "Settings",
+            "themeTitle": "Theme"
+        }
     }
 }

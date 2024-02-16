@@ -1,11 +1,81 @@
 @import "@paul-clavier/mugiwara/dist/style.css";
 
 :root {
-    --primary-900: hsl(142, 76%, 21%);
-    --primary-700: hsl(142, 76%, 21%);
+    --primary-900: hsl(142, 76%, 7%);
+    --primary-700: hsl(142, 76%, 14%);
     --primary-500: hsl(142, 76%, 21%);
-    --primary-300: hsl(142, 76%, 21%);
-    --primary-100: hsl(142, 76%, 21%);
+    --primary-300: hsl(142, 76%, 28%);
+    --primary-100: hsl(142, 76%, 35%);
+
+    --black-900: #191929;
+    --black-700: #4b4b6a;
+    --black-500: #9a9ab5;
+    --black-300: #dcdce4;
+    --black-100: #f7f7f8;
+
+    /* Danger colors */
+    --danger-800: #731206;
+    --danger-700: #b4200e;
+    --danger-600: #d02b20;
+    --danger-500: #ee5e52;
+    --danger-300: #f5c0b8;
+    --danger-200: #fcdad7;
+    --danger-100: #fcecea;
+
+    /* Warning colors */
+    --warning-800: #2a1e01;
+    --warning-700: #655506;
+    --warning-600: #bd9d1a;
+    --warning-500: #f3d970;
+    --warning-300: #fae7b9;
+    --warning-200: #fff5da;
+    --warning-100: #fff6ee;
+
+    /* Success colors */
+    --success-800: #092c13;
+    --success-700: #154f27;
+    --success-600: #267e41;
+    --success-500: #5cb176;
+    --success-300: #c6f0c2;
+    --success-200: #d5f5d5;
+    --success-100: #eafbe7;
+
+    /* Font weights */
+    --weight-thin: 100;
+    --weight-light: 200;
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-bold: 600;
+    --weight-extra-bold: 800;
+    --weight-black: 900;
+
+    /* Transition */
+    --color-transition-specs: 0.2s ease-in-out;
+
+    /* Z-index */
+    --z-index-below-content: -1;
+    --z-index-content: 0;
+    --z-index-above-content: 1;
+    --z-index-close-button: 2;
+    --z-index-header: 3;
+    --z-index-banner: 4;
+    --z-index-backdrop-content: 5;
+    --z-index-above-backdrop-content: 6;
+
+    /* Shadows */
+    --shadow-focus: 0 0 0 0.125rem var(--background),
+        0 0 0 0.25rem var(--primary-600);
+
+    /* Animations */
+    --loading-animation: rotation 2s infinite linear;
+}
+
+:root.dark {
+    --primary-900: hsl(142, 76%, 7%);
+    --primary-700: hsl(142, 76%, 14%);
+    --primary-500: hsl(142, 76%, 21%);
+    --primary-300: hsl(142, 76%, 28%);
+    --primary-100: hsl(142, 76%, 35%);
 
     /* Danger colors */
     --danger-800: #731206;

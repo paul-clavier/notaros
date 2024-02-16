@@ -1,0 +1,12 @@
+.root {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
