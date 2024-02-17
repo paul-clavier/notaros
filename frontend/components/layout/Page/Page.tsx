@@ -1,10 +1,6 @@
-import { CogIcon, useTheme } from "@paul-clavier/mugiwara";
 import classnames from "classnames";
-import Image from "next/image";
-import Link from "next/link";
 import { ReactElement, ReactNode } from "react";
-import { useTranslation } from "react-i18next";
-import IconButton from "../IconButton/IconButton";
+import { Header } from "../Header";
 import { Navigation } from "../Navigation";
 import styles from "./Page.module.css";
 
@@ -16,29 +12,6 @@ interface PageProps {
     bodyClassName?: string;
     className?: string;
 }
-
-const Header = () => {
-    const { t } = useTranslation();
-    const { themeClass } = useTheme();
-    return (
-        <div className={styles.header}>
-            <Link href="/" className={styles.logo}>
-                <Image
-                    height="42"
-                    width="42"
-                    src={`/notaros.${themeClass}.png`}
-                    alt="Notaros logo"
-                />
-                <h2>{t("generic.title")}</h2>
-            </Link>
-            <Link href="/settings" className={styles.settings}>
-                <IconButton>
-                    <CogIcon />
-                </IconButton>
-            </Link>
-        </div>
-    );
-};
 
 const Page = ({
     footer,

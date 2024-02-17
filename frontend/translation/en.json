@@ -14,10 +14,32 @@
             "unknownError": "There was an unknown error from our application. Please try <button>reloading the page</button>.<br/>Otherwise, please reach our developers team."
         }
     },
+    "form": {
+        "errors": { "required": "This field is required." },
+        "submit": "Submit"
+    },
     "pages": {
         "settings": {
             "title": "Settings",
             "themeTitle": "Theme"
+        },
+        "signUp": {
+            "title": "Sign up",
+            "form": {
+                "firstName": "First name",
+                "lastName": "Last name",
+                "email": "Email",
+                "password": "Password",
+                "placeholders": {
+                    "firstName": "Monsieur",
+                    "lastName": "Tis",
+                    "email": "tistis@gmail.com",
+                    "password": "brigadecanine"
+                },
+                "errors": {
+                    "passwordMinLength": "Password must be at least 8 characters"
+                }
+            }
         }
     }
 }

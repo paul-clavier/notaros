@@ -1,4 +1,4 @@
-import { ThemeButton } from "@/components/ThemeButton";
+import { ThemeButton } from "@/components/ui/ThemeButton";
 import { useTranslation } from "react-i18next";
 import styles from "./SettingsLayout.module.css";
 

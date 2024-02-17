@@ -74,12 +74,21 @@ export class AuthService {
     private validateUserDoesNotExist = (
         email: string,
     ): Task<string, UserAlreadyExists | Error> => {
-        return this.userRepository.findUnique(email).pipeResult((user) =>
-            Result.fromBoolean(!user, {
+        console.log({ email });
+        return this.userRepository.findUnique(email).pipeResult((user) => {
+            console.log({
+                user,
+                neg: !user,
+                result: Result.fromBoolean(!user, {
+                    value: email,
+                    error: new UserAlreadyExists(email),
+                }),
+            });
+            return Result.fromBoolean(user.isNone(), {
                 value: email,
                 error: new UserAlreadyExists(email),
-            }),
-        );
+            });
+        });
     };
 
     private validatePassword = (

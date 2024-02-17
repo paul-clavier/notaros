@@ -1,4 +1,4 @@
-import { Page } from "@/components/Page";
+import { Page } from "@/components/layout/Page";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
 

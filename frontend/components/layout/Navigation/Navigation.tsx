@@ -40,6 +40,7 @@ interface NavigationProps {
     className?: string;
 }
 
+// TODO: Refactor using Shadcn side menu like here: https://ui.shadcn.com/examples/mail
 const Navigation = ({ className }: NavigationProps) => {
     const { t } = useTranslation();
     return (

@@ -1,0 +1,24 @@
+.root {
+    position: fixed;
+    height: var(--header-height);
+    width: 100vw;
+    padding: 0 1rem;
+    background-color: var(--primary-700);
+    z-index: var(--z-index-header);
+    display: grid;
+    grid-template-areas: "logo gap settings";
+    grid-template-columns: min-content auto min-content;
+    grid-gap: 1rem;
+    align-items: center;
+}
+
+.logo {
+    grid-area: logo;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.settings {
+    grid-area: settings;
+}

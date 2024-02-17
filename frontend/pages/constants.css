@@ -6,6 +6,10 @@
     --primary-500: hsl(142, 76%, 21%);
     --primary-300: hsl(142, 76%, 28%);
     --primary-100: hsl(142, 76%, 35%);
+    --primary-80: hsl(142, 76%, 42%);
+    --primary-60: hsl(142, 76%, 49%);
+    --primary-40: hsl(142, 76%, 56%);
+    --primary-20: hsl(142, 76%, 63%);
 
     --black-900: #191929;
     --black-700: #4b4b6a;
@@ -68,14 +72,21 @@
 
     /* Animations */
     --loading-animation: rotation 2s infinite linear;
+
+    /* Borders */
+    --card-border-radius: 1rem;
 }
 
 :root.dark {
-    --primary-900: hsl(142, 76%, 7%);
-    --primary-700: hsl(142, 76%, 14%);
-    --primary-500: hsl(142, 76%, 21%);
-    --primary-300: hsl(142, 76%, 28%);
+    --primary-900: hsl(142, 76%, 63%);
+    --primary-700: hsl(142, 76%, 56%);
+    --primary-500: hsl(142, 76%, 49%);
+    --primary-300: hsl(142, 76%, 42%);
     --primary-100: hsl(142, 76%, 35%);
+    --primary-80: hsl(142, 76%, 28%);
+    --primary-60: hsl(142, 76%, 21%);
+    --primary-40: hsl(142, 76%, 14%);
+    --primary-20: hsl(142, 76%, 7%);
 
     /* Danger colors */
     --danger-800: #731206;

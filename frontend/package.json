@@ -9,13 +9,17 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@paul-clavier/mugiwara": "0.1.5",
+        "@hookform/resolvers": "3.3.4",
+        "@paul-clavier/mugiwara": "0.1.8",
         "classnames": "2.5.1",
         "next": "14.1.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
+        "react-hook-form": "7.50.1",
         "react-i18next": "14.0.1",
-        "swr": "2.2.4"
+        "swr": "2.2.4",
+        "zod": "3.22.4",
+        "zod-i18n-map": "2.27.0"
     },
     "devDependencies": {
         "@types/node": "20.3.1",

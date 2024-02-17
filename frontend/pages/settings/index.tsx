@@ -1,5 +1,5 @@
-import { Page } from "@/components/Page";
-import { SettingsLayout } from "@/layouts/SettingsLayout";
+import { Page } from "@/components/layout/Page";
+import { SettingsLayout } from "@/layouts/Settings";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
 

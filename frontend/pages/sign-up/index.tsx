@@ -1,17 +1,18 @@
-import { Page } from "@/components/layout/Page";
+import { FullPage } from "@/components/layout/FullPage";
+import { SignUpLayout } from "@/layouts/SignUp";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
 
-export default function Settings() {
+export default function Home() {
     const { t } = useTranslation();
     return (
         <>
             <Head>
                 <title>{t("generic.title")}</title>
             </Head>
-            <Page>
-                <h1>Raised hand</h1>
-            </Page>
+            <FullPage>
+                <SignUpLayout />
+            </FullPage>
         </>
     );
 }

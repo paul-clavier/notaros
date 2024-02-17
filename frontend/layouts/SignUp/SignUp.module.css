@@ -1,0 +1,29 @@
+.root {
+    padding: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    --container-width: 30rem;
+    --container-height: 50rem;
+
+    border-radius: var(--card-border-radius);
+    width: var(--container-width);
+    height: var(--container-height);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.button {
+    background-color: var(--primary-700);
+}

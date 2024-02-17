@@ -1,30 +1,30 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import englishTranslation from "./en.json";
-import frenchTranslation from "./fr.json";
 import {
     DEFAULT_USER_OPTIONS,
     getUserOptionsFromLocalStorage,
 } from "@/context/user-options";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import { z } from "zod";
+import { zodI18nMap } from "zod-i18n-map";
+import zodEnglishTranslation from "zod-i18n-map/locales/en/zod.json";
+import zodFrenchTranslation from "zod-i18n-map/locales/fr/zod.json";
+import englishTranslation from "./en.json";
+import frenchTranslation from "./fr.json";
 
 export const LANGUAGES = ["en-GB", "fr"] as const;
 export type Language = (typeof LANGUAGES)[number];
 
-// This intermediary method is especially used to validate the messages type.
-const loadResources = <T>(
-    englishMessages: T,
-    frenchTranslation: T,
-): Record<Language, { translation: T }> => ({
-    "en-GB": {
-        translation: englishMessages,
-    },
-    fr: {
-        translation: frenchTranslation,
-    },
-});
-
 i18n.use(initReactI18next).init({
-    resources: loadResources(englishTranslation, frenchTranslation),
+    resources: {
+        "en-GB": {
+            translation: englishTranslation,
+            zod: zodEnglishTranslation,
+        },
+        fr: {
+            translation: frenchTranslation,
+            zod: zodFrenchTranslation,
+        },
+    },
     lng:
         getUserOptionsFromLocalStorage().language ??
         DEFAULT_USER_OPTIONS.language,
@@ -46,5 +46,7 @@ i18n.services.formatter?.add("capitalise", (value) => {
     if (!value) return value;
     return value[0].toLocaleUpperCase() + value.substring(1);
 });
+
+z.setErrorMap(zodI18nMap);
 
 export { i18n };
