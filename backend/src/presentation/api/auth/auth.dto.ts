@@ -1,10 +1,12 @@
 import { UserAlreadyExists, UserNotFoundError } from "@/domain/users";
+import { parseJwt } from "@/utils/encoding";
 import { HttpException, HttpStatus } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
 import { ResponseDto } from "../dto";
 import { WrongPasswordError, WrongRefreshTokenError } from "./auth.errors";
 import { Tokens } from "./auth.service";
+import { UserPayload } from "./jwt.strategy";
 
 export class SignInRequestDto {
     @IsEmail()
@@ -19,12 +21,18 @@ export class SignInRequestDto {
     password: string;
 }
 
-export class SignInResponseDto {
+export class SignInResponseDto implements UserPayload {
     @ApiProperty()
-    accessToken: string;
+    id: number;
 
     @ApiProperty()
-    refreshToken: string;
+    email: string;
+
+    @ApiProperty()
+    firstName: string;
+
+    @ApiProperty()
+    lastName: string;
 }
 
 export class SignInResponse extends ResponseDto<
@@ -32,12 +40,8 @@ export class SignInResponse extends ResponseDto<
     WrongPasswordError | UserNotFoundError,
     SignInResponseDto
 > {
-    constructor(task) {
-        super(task);
-    }
-
     fromResult = (data: Tokens): SignInResponseDto => {
-        return data;
+        return parseJwt<UserPayload>(data.accessToken);
     };
     fromError = (): HttpException => {
         return new HttpException(
@@ -70,12 +74,18 @@ export class SignUpRequestDto {
     lastName: string;
 }
 
-export class SignUpResponseDto {
+export class SignUpResponseDto implements UserPayload {
     @ApiProperty()
-    accessToken: string;
+    id: number;
 
     @ApiProperty()
-    refreshToken: string;
+    email: string;
+
+    @ApiProperty()
+    firstName: string;
+
+    @ApiProperty()
+    lastName: string;
 }
 
 export class SignUpResponse extends ResponseDto<
@@ -83,12 +93,8 @@ export class SignUpResponse extends ResponseDto<
     UserAlreadyExists,
     SignUpResponseDto
 > {
-    constructor(task) {
-        super(task);
-    }
-
     fromResult = (data: Tokens): SignUpResponseDto => {
-        return data;
+        return parseJwt<UserPayload>(data.accessToken);
     };
     fromError = (error: UserAlreadyExists): HttpException => {
         return new HttpException(
@@ -98,26 +104,17 @@ export class SignUpResponse extends ResponseDto<
     };
 }
 
-export class RefreshTokensResponseDto {
-    @ApiProperty()
-    accessToken: string;
-
-    @ApiProperty()
-    refreshToken: string;
-}
+export class RefreshTokensResponseDto {}
 
 export class RefreshTokensResponse extends ResponseDto<
     Tokens,
     UserNotFoundError | WrongRefreshTokenError,
     RefreshTokensResponseDto
 > {
-    constructor(task) {
-        super(task);
-    }
-
-    fromResult = (data: Tokens): SignInResponseDto => {
-        return data;
+    fromResult = (): RefreshTokensResponseDto => {
+        return {};
     };
+
     fromError = (): HttpException => {
         return new HttpException(
             "Though your auth token is valid, we could not find your account. Please contact our team",

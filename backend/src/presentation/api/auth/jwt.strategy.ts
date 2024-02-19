@@ -15,7 +15,10 @@ export interface UserPayload {
 export class AccessJwtStrategy extends PassportStrategy(Strategy, "jwt") {
     constructor() {
         super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            jwtFromRequest: ExtractJwt.fromExtractors([
+                AccessJwtStrategy.extractJWT,
+                ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ]),
             ignoreExpiration: false,
             secretOrKey: JWT_ACCESS_SECRET,
         });
@@ -23,6 +26,13 @@ export class AccessJwtStrategy extends PassportStrategy(Strategy, "jwt") {
 
     validate(payload: UserPayload) {
         return payload;
+    }
+
+    private static extractJWT(req: Request): string | null {
+        if (req.cookies && "accessToken" in req.cookies) {
+            return req.cookies.accessToken;
+        }
+        return null;
     }
 }
 
@@ -33,7 +43,10 @@ export class RefreshJwtStrategy extends PassportStrategy(
 ) {
     constructor() {
         super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            jwtFromRequest: ExtractJwt.fromExtractors([
+                RefreshJwtStrategy.extractJWT,
+                ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ]),
             ignoreExpiration: false,
             secretOrKey: JWT_REFRESH_SECRET,
             passReqToCallback: true,
@@ -41,10 +54,14 @@ export class RefreshJwtStrategy extends PassportStrategy(
     }
 
     validate(req: Request, payload: any) {
-        const refreshToken = req
-            .get("Authorization")
-            ?.replace("Bearer", "")
-            .trim();
+        const refreshToken = req.cookies.refreshToken;
         return { ...payload, refreshToken };
+    }
+
+    private static extractJWT(req: Request): string | null {
+        if (req.cookies && "refreshToken" in req.cookies) {
+            return req.cookies.refreshToken;
+        }
+        return null;
     }
 }

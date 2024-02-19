@@ -6,9 +6,10 @@ import {
     Get,
     Post,
     Request,
+    Res,
     UseGuards,
 } from "@nestjs/common";
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { AuthedRequest, AuthedRequestWithRefreshToken, toPort } from "../dto";
 import {
     RefreshTokensResponse,
@@ -29,18 +30,23 @@ export class AuthController {
 
     @Post("signIn")
     @ApiOkResponse({ type: SignInResponseDto })
-    login(
+    async login(
         @Body() { email, password }: SignInRequestDto,
+        @Res({ passthrough: true }) res,
     ): Promise<SignInResponseDto> {
         const result = this.authService.signIn(email, password);
         const response = new SignInResponse(result);
+        const tokens = await response.getResult();
+        res.cookie("accessToken", tokens.accessToken, { httpOnly: true });
+        res.cookie("refreshToken", tokens.refreshToken, { httpOnly: true });
         return response.send();
     }
 
     @Post("signUp")
     @ApiOkResponse({ type: SignUpResponseDto })
-    signup(
+    async signup(
         @Body() { email, password, firstName, lastName }: SignUpRequestDto,
+        @Res({ passthrough: true }) res,
     ): Promise<SignUpResponseDto> {
         const port = toPort<
             Omit<Mutable<User>, "refreshToken">,
@@ -53,18 +59,24 @@ export class AuthController {
         });
         const result = this.authService.signUp(port);
         const response = new SignUpResponse(result);
+        const tokens = await response.getResult();
+        res.cookie("accessToken", tokens.accessToken, { httpOnly: true });
+        res.cookie("refreshToken", tokens.refreshToken, { httpOnly: true });
         return response.send();
     }
 
     @Get("signOut")
-    @ApiBearerAuth()
     @UseGuards(AccessTokenGuard)
-    async signout(@Request() request: AuthedRequest) {
+    async signout(
+        @Request() request: AuthedRequest,
+        @Res({ passthrough: true }) res,
+    ) {
         await this.authService.signOut(request.user.id);
+        res.cookie("accessToken", null, { httpOnly: true });
+        res.cookie("refreshToken", null, { httpOnly: true });
     }
 
     @Get("refreshToken")
-    @ApiBearerAuth()
     @UseGuards(RefreshTokenGuard)
     refreshTokens(@Request() request: AuthedRequestWithRefreshToken) {
         const result = this.authService.refreshTokens(
@@ -73,5 +85,11 @@ export class AuthController {
         );
         const response = new RefreshTokensResponse(result);
         return response.send();
+    }
+
+    @Get("toto")
+    @UseGuards(AccessTokenGuard)
+    async toto() {
+        return "toto";
     }
 }

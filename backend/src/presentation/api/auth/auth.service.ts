@@ -139,11 +139,11 @@ export class AuthService {
         };
         const accessToken = this.jwtService.sign(userPayload, {
             secret: JWT_ACCESS_SECRET,
-            expiresIn: "60s",
+            expiresIn: "300s",
         });
         const refreshToken = this.jwtService.sign(userPayload, {
             secret: JWT_REFRESH_SECRET,
-            expiresIn: "7d",
+            expiresIn: "14d",
         });
 
         return { accessToken, refreshToken };

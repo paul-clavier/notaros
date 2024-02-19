@@ -30,6 +30,10 @@ export abstract class ResponseDto<A, E extends { message: string }, DTO> {
     abstract fromResult: (data: A) => DTO;
     abstract fromError: (error: E) => HttpException;
 
+    getResult = (): Promise<A> => {
+        return this.task.resultToPromise();
+    };
+
     send = (): Promise<DTO> => {
         return this.task
             .resultToPromise()
