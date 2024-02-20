@@ -1,5 +1,5 @@
 .root {
-    padding: 0 2rem;
+    width: 100%;
     display: flex;
 
     flex-grow: 1;
@@ -8,12 +8,6 @@
 
     align-items: center;
     justify-content: center;
-}
-
-.alert {
-    width: 100%;
-    max-width: 25rem;
-    margin: 0 auto;
 }
 
 .button {

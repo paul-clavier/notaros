@@ -8,10 +8,15 @@ export interface SignUpUserRequest {
     password: string;
 }
 
-export type UserResponse = Omit<SignUpUserRequest, "password">;
+export interface User {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+}
 
 export const signUpUser = async (body: SignUpUserRequest) => {
-    return request<UserResponse>({
+    return request<User>({
         url: "auth/signUp",
         body: JSON.stringify(body),
         method: "POST",

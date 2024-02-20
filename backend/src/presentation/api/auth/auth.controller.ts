@@ -36,7 +36,7 @@ export class AuthController {
     ): Promise<SignInResponseDto> {
         const result = this.authService.signIn(email, password);
         const response = new SignInResponse(result);
-        const tokens = await response.getResult();
+        const tokens = await response.get();
         res.cookie("accessToken", tokens.accessToken, { httpOnly: true });
         res.cookie("refreshToken", tokens.refreshToken, { httpOnly: true });
         return response.send();
@@ -59,9 +59,11 @@ export class AuthController {
         });
         const result = this.authService.signUp(port);
         const response = new SignUpResponse(result);
-        const tokens = await response.getResult();
-        res.cookie("accessToken", tokens.accessToken, { httpOnly: true });
-        res.cookie("refreshToken", tokens.refreshToken, { httpOnly: true });
+        if (await response.isOk()) {
+            const tokens = await response.get();
+            res.cookie("accessToken", tokens.accessToken, { httpOnly: true });
+            res.cookie("refreshToken", tokens.refreshToken, { httpOnly: true });
+        }
         return response.send();
     }
 

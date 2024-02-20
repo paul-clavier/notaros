@@ -1,3 +1,4 @@
+import { User } from "@/api/user";
 import {
     ReactNode,
     createContext,
@@ -6,13 +7,6 @@ import {
     useEffect,
     useState,
 } from "react";
-
-export interface User {
-    id: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-}
 
 const UserContext = createContext<User | null>(null);
 const SetUserContext = createContext<(user: User | null) => void>(() => {

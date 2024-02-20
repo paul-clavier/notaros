@@ -18,8 +18,8 @@ export const buildError = async (
     defaultError = t("generic.unknownError"),
 ): Promise<string> => {
     try {
-        const errorsAray = flattenErrors(await response.json());
-        return errorsAray.join(" ");
+        const errorsArray = flattenErrors(await response.json());
+        return errorsArray.join(" ");
     } catch (e) {
         return defaultError;
     }

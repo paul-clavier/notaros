@@ -1,1 +1,1 @@
-export { default as UnknownErrorMessage } from "./ErrorMessage";
+export { ErrorMessage, UnknownErrorMessage } from "./ErrorMessage";

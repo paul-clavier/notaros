@@ -10,9 +10,8 @@
         "taxes": "Taxes"
     },
     "components": {
-        "errorMessage": {
-            "unknownError": "There was an unknown error from our application. Please try <button>reloading the page</button>.<br/>Otherwise, please reach our developers team."
-        }
+        "errorTitle": "Error",
+        "errorMessage": "There was an unknown error. Please try <button>reloading the page</button> or reach our developers team."
     },
     "form": {
         "errors": { "required": "This field is required." },
