@@ -1,5 +1,5 @@
 import { useOptionalUser } from "@/context/user";
-import { CogIcon, useTheme } from "@paul-clavier/mugiwara";
+import { Button, CogIcon, useTheme } from "@paul-clavier/mugiwara";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
@@ -22,12 +22,23 @@ const Header = () => {
                 <h2>{t("generic.title")}</h2>
             </Link>
             {user ? (
-                <Link href="/settings" className={styles.settings}>
+                <Link href="/settings" className={styles.buttons}>
                     <IconButton>
                         <CogIcon />
                     </IconButton>
                 </Link>
-            ) : null}
+            ) : (
+                <div className={styles.buttons}>
+                    <Link href="/sign-in">
+                        <Button variant="outline">
+                            {t("navigation.signIn")}
+                        </Button>
+                    </Link>
+                    <Link href="/sign-up">
+                        <Button variant="link">{t("navigation.signUp")}</Button>
+                    </Link>
+                </div>
+            )}
         </div>
     );
 };

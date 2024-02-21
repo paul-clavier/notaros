@@ -1,33 +1,34 @@
-import { SignUpForm, signUp, signUpFormSchema } from "@/api/user";
+import { SignInForm, signIn, signInFormSchema } from "@/api/user";
 import { buildError } from "@/api/utils/errors";
 import { useSetUser } from "@/context/user";
+import { getLocalUrl } from "@/utils/url";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
-export const useSignUp = () => {
+export const useSignIn = () => {
     const setUser = useSetUser();
-    const { push } = useRouter();
-    const form = useForm<SignUpForm>({
-        resolver: zodResolver(signUpFormSchema),
+    const { query, push } = useRouter();
+    const form = useForm<SignInForm>({
+        resolver: zodResolver(signInFormSchema),
         defaultValues: {
-            firstName: "",
-            lastName: "",
             email: "",
             password: "",
         },
     });
 
-    const submit = async (values: SignUpForm) => {
-        const response = await signUp(values);
+    const submit = async (values: SignInForm) => {
+        const response = await signIn(values);
         if (!response.ok) {
             const error = await buildError(response);
             form.setError("root", { message: error });
             return;
         }
         const user = await response.json();
+        const next = getLocalUrl(query.next as string);
+        const nextPage = next ?? "/";
         setUser(user);
-        push("/");
+        push(nextPage);
     };
 
     const onSubmit = form.handleSubmit(submit);

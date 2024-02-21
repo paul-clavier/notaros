@@ -11,12 +11,12 @@ import {
     Input,
 } from "@paul-clavier/mugiwara";
 import { useTranslation } from "react-i18next";
-import styles from "./SignUp.module.css";
-import { useSignUp } from "./useSignUp";
+import styles from "./SignIn.module.css";
+import { useSignIn } from "./useSignIn";
 
-const SignUpForm = () => {
+const SignInForm = () => {
     const { t } = useTranslation();
-    const { form, onSubmit, control, errors } = useSignUp();
+    const { form, onSubmit, control, errors } = useSignIn();
 
     return (
         <Form {...form}>
@@ -24,48 +24,6 @@ const SignUpForm = () => {
                 {errors.root ? (
                     <ErrorMessage description={errors.root.message} />
                 ) : null}
-                <FormField
-                    control={control}
-                    name="firstName"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>
-                                {t("pages.signUp.form.firstName")}
-                            </FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="text"
-                                    placeholder={t(
-                                        "pages.signUp.form.placeholders.firstName",
-                                    )}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage t={t} />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={control}
-                    name="lastName"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>
-                                {t("pages.signUp.form.lastName")}
-                            </FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="text"
-                                    placeholder={t(
-                                        "pages.signUp.form.placeholders.lastName",
-                                    )}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage t={t} />
-                        </FormItem>
-                    )}
-                />
                 <FormField
                     control={control}
                     name="email"
@@ -114,14 +72,14 @@ const SignUpForm = () => {
     );
 };
 
-const SignUpLayout = () => {
+const SignInLayout = () => {
     const { t } = useTranslation();
     return (
         <FormLayout>
-            <h1>{t("pages.signUp.title")}</h1>
-            <SignUpForm />
+            <h1>{t("pages.signIn.title")}</h1>
+            <SignInForm />
         </FormLayout>
     );
 };
 
-export default SignUpLayout;
+export default SignInLayout;

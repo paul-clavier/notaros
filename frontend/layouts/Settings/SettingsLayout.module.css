@@ -10,3 +10,7 @@
     flex-direction: column;
     gap: 0.5rem;
 }
+
+.signOut {
+    width: min-content;
+}

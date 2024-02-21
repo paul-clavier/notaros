@@ -1,6 +1,8 @@
 import {
     BYCRYPT_SALT,
+    JWT_ACCESS_EXPIRATION,
     JWT_ACCESS_SECRET,
+    JWT_REFRESH_EXPIRATION,
     JWT_REFRESH_SECRET,
 } from "@/app.constants";
 import { USER_REPOSITORY } from "@/domain/injection-tokens";
@@ -130,11 +132,11 @@ export class AuthService {
         };
         const accessToken = this.jwtService.sign(userPayload, {
             secret: JWT_ACCESS_SECRET,
-            expiresIn: "300s",
+            expiresIn: JWT_ACCESS_EXPIRATION,
         });
         const refreshToken = this.jwtService.sign(userPayload, {
             secret: JWT_REFRESH_SECRET,
-            expiresIn: "14d",
+            expiresIn: JWT_REFRESH_EXPIRATION,
         });
 
         return { accessToken, refreshToken };

@@ -36,9 +36,11 @@ export class AuthController {
     ): Promise<SignInResponseDto> {
         const result = this.authService.signIn(email, password);
         const response = new SignInResponse(result);
-        const tokens = await response.get();
-        res.cookie("accessToken", tokens.accessToken, { httpOnly: true });
-        res.cookie("refreshToken", tokens.refreshToken, { httpOnly: true });
+        if (await response.isOk()) {
+            const tokens = await response.get();
+            res.cookie("accessToken", tokens.accessToken, { httpOnly: true });
+            res.cookie("refreshToken", tokens.refreshToken, { httpOnly: true });
+        }
         return response.send();
     }
 
@@ -67,7 +69,7 @@ export class AuthController {
         return response.send();
     }
 
-    @Get("signOut")
+    @Post("signOut")
     @UseGuards(AccessTokenGuard)
     async signout(
         @Request() request: AuthedRequest,
@@ -78,20 +80,33 @@ export class AuthController {
         res.cookie("refreshToken", null, { httpOnly: true });
     }
 
-    @Get("refreshToken")
+    @Post("refreshTokens")
     @UseGuards(RefreshTokenGuard)
-    refreshTokens(@Request() request: AuthedRequestWithRefreshToken) {
+    async refreshTokens(
+        @Request() request: AuthedRequestWithRefreshToken,
+        @Res({ passthrough: true }) res,
+    ) {
         const result = this.authService.refreshTokens(
             request.user.id,
             request.user.refreshToken,
         );
         const response = new RefreshTokensResponse(result);
-        return response.send();
+        if (await response.isOk()) {
+            const tokens = await response.get();
+            res.cookie("accessToken", tokens.accessToken, { httpOnly: true });
+            res.cookie("refreshToken", tokens.refreshToken, { httpOnly: true });
+        }
+    }
+
+    @Post("toto")
+    @UseGuards(AccessTokenGuard)
+    async postToto() {
+        return "toto";
     }
 
     @Get("toto")
     @UseGuards(AccessTokenGuard)
-    async toto() {
-        return "toto";
+    async getToto() {
+        return { message: "toto" };
     }
 }

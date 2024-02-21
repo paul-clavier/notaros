@@ -10,7 +10,13 @@ export interface TypedResponse<T = object> extends Response {
     json(): Promise<T>;
 }
 
-// TODO: Add the cookies if user is authenticated
+export const refreshTokens = () => {
+    return fetch(`${API_URL}/auth/refreshTokens`, {
+        method: "POST",
+        credentials: "include",
+    });
+};
+
 export const request = async <T>({
     url,
     method,
@@ -21,5 +27,16 @@ export const request = async <T>({
         headers["Content-Type"] = "application/json";
     }
 
-    return fetch(`${API_URL}/${url}`, { method, body, headers });
+    return fetch(`${API_URL}/${url}`, {
+        method,
+        body,
+        headers,
+        credentials: "include", // https://stackoverflow.com/questions/36824106/express-doesnt-set-a-cookie
+    }).then(async (response) => {
+        if (response.status === 401) {
+            const resfreshResponse = await refreshTokens();
+            if (resfreshResponse.ok) return request<T>({ url, method, body });
+        }
+        return response;
+    });
 };

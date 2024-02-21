@@ -7,7 +7,9 @@
         "home": "Home",
         "draftRegistry": "Draft registry",
         "raisedHand": "Raised hand",
-        "taxes": "Taxes"
+        "taxes": "Taxes",
+        "signUp": "Sign up",
+        "signIn": "Sign in"
     },
     "components": {
         "errorTitle": "Error",
@@ -20,7 +22,8 @@
     "pages": {
         "settings": {
             "title": "Settings",
-            "themeTitle": "Theme"
+            "themeTitle": "Theme",
+            "signOut": "Sign out"
         },
         "signUp": {
             "title": "Sign up",
@@ -34,9 +37,17 @@
                     "lastName": "Tis",
                     "email": "tistis@gmail.com",
                     "password": "brigadecanine"
-                },
-                "errors": {
-                    "passwordMinLength": "Password must be at least 8 characters"
+                }
+            }
+        },
+        "signIn": {
+            "title": "Sign in",
+            "form": {
+                "email": "Email",
+                "password": "Password",
+                "placeholders": {
+                    "email": "tistis@gmail.com",
+                    "password": "brigadecanine"
                 }
             }
         }

@@ -3,17 +3,19 @@
 
     width: var(--side-menu-width);
     min-height: 100vh;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    background-color: hsl(var(--primary));
+    gap: 0.25rem;
+    background-color: var(--primary-300);
 }
 
 .link {
     display: flex;
     gap: 0.5rem;
-    padding: var(--menu-item-padding);
+    align-items: left;
 }
 
 .link:hover {
-    background-color: var(--primary-300);
+    background-color: var(--primary-500);
 }

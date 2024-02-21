@@ -6,7 +6,7 @@
     background-color: var(--primary-700);
     z-index: var(--z-index-header);
     display: grid;
-    grid-template-areas: "logo gap settings";
+    grid-template-areas: "logo gap buttons";
     grid-template-columns: min-content auto min-content;
     grid-gap: 1rem;
     align-items: center;
@@ -19,6 +19,8 @@
     gap: 0.5rem;
 }
 
-.settings {
-    grid-area: settings;
+.buttons {
+    grid-area: buttons;
+    display: flex;
+    gap: 1rem;
 }

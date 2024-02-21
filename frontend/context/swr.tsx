@@ -1,7 +1,15 @@
 import { buildError } from "@/api/utils/errors";
+import { refreshTokens } from "@/api/utils/request";
+import { API_URL } from "@/pages/_constants";
 import { Language } from "@/translation";
+import { useRouter } from "next/router";
 import { ReactNode } from "react";
-import { SWRConfig as DefaultSWRConfig, SWRConfiguration } from "swr";
+import {
+    SWRConfig as DefaultSWRConfig,
+    SWRConfiguration,
+    useSWRConfig,
+} from "swr";
+import { useSetUser } from "./user";
 import { useUserOptions } from "./user-options";
 
 interface SWRConfigProps {
@@ -19,31 +27,50 @@ class SWRFetchError extends Error {
     }
 }
 
-const fetcher = (language: Language) => async (url: string) => {
-    const headers: Record<string, string> = { "Accept-Language": language };
-    const response = await fetch(url, { headers });
+const fetcher =
+    (language: Language) =>
+    async (url: string): Promise<any> => {
+        const headers: Record<string, string> = { "Accept-Language": language };
+        const response = await fetch(`${API_URL}/${url}`, {
+            headers,
+            credentials: "include",
+        });
 
-    if (!response.ok) {
-        const details = await buildError(response, "");
-        throw new SWRFetchError(
-            `An error occurred while fetching the data: Error ${response.status}`,
-            response.status,
-            details,
-        );
-    }
+        if (!response.ok) {
+            const details = await buildError(response, "");
+            throw new SWRFetchError(
+                `An error occurred while fetching the data: Error ${response.status}`,
+                response.status,
+                details,
+            );
+        }
 
-    return response.json();
-};
+        return response.json();
+    };
 
 export const SWRConfig = ({ children }: SWRConfigProps) => {
+    const { mutate } = useSWRConfig();
     const userOptions = useUserOptions();
+    const setUser = useSetUser();
+    const { asPath, push } = useRouter();
     const swrOptions: SWRConfiguration = {
-        onError: (error) => {
-            // eslint-disable-next-line no-console
-            console.log({ error });
+        onErrorRetry: async (
+            error,
+            key,
+            config,
+            revalidate,
+            revalidateOpts,
+        ) => {
+            if (error.status === 401) {
+                const resfreshResponse = await refreshTokens();
+                if (resfreshResponse.ok) return revalidate();
+
+                setUser(null);
+                mutate((key) => true, undefined, { revalidate: false });
+                push(`sign-in?next=${asPath}`);
+            }
             return error;
         },
-        shouldRetryOnError: false,
         fetcher: fetcher(userOptions.language),
     };
 

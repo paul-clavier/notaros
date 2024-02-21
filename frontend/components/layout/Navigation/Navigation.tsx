@@ -3,9 +3,11 @@ import {
     HomeIcon,
     MagicIcon,
     SendIcon,
+    buttonVariants,
 } from "@paul-clavier/mugiwara";
 import classNames from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import styles from "./Navigation.module.css";
 
@@ -40,18 +42,34 @@ interface NavigationProps {
     className?: string;
 }
 
+const isCurrentPathUnderMenu = (currentPath: string, menuPath: string) => {
+    const prefixedMenuPath = `/${menuPath}`;
+    return prefixedMenuPath === "/"
+        ? prefixedMenuPath === currentPath
+        : currentPath.startsWith(prefixedMenuPath);
+};
+
 // TODO: Refactor using Shadcn side menu like here: https://ui.shadcn.com/examples/mail
 const Navigation = ({ className }: NavigationProps) => {
     const { t } = useTranslation();
+    const { asPath } = useRouter();
     return (
         <nav className={classNames(styles.root, className)}>
             {NAVIGATION_MENU.map((item) => (
                 <Link
                     key={item.name}
                     href={`/${item.link}`}
-                    className={styles.link}
+                    className={classNames(
+                        styles.link,
+                        buttonVariants({
+                            variant: isCurrentPathUnderMenu(asPath, item.link)
+                                ? "default"
+                                : "ghost",
+                            size: "sm",
+                        }),
+                    )}
                 >
-                    {item.icon}
+                    <div className={styles.icon}>{item.icon}</div>
                     <h3>{t(item.label)}</h3>
                 </Link>
             ))}

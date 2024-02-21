@@ -1,4 +1,6 @@
 import { User } from "@/api/user";
+import { refreshTokens } from "@/api/utils/request";
+import { REFRESH_TOKEN_RATE } from "@/pages/_constants";
 import {
     ReactNode,
     createContext,
@@ -29,9 +31,14 @@ const getUserFromLocalStorage = (): User | null => {
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(getUserFromLocalStorage());
-
     useEffect(() => {
         localStorage.setItem(LOCALSTORAGE_USER_KEY, JSON.stringify(user));
+    }, [user]);
+
+    useEffect(() => {
+        if (!user) return;
+        const interval = setInterval(refreshTokens, REFRESH_TOKEN_RATE * 1000);
+        return () => clearInterval(interval);
     }, [user]);
 
     /**
